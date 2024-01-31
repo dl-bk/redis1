@@ -1,0 +1,85 @@
+ set name "John Doe"
+OK
+
+127.0.0.1:6379> get name
+"John Doe"
+
+127.0.0.1:6379> RPUSH fruits 'banana' 'orange' 'apple'
+(integer) 3
+
+127.0.0.1:6379> LRANGE fruits 0 -1
+1) "banana"
+2) "orange"
+3) "apple"
+
+127.0.0.1:6379> HMSET user:1 name "Alice" age 25
+OK
+
+127.0.0.1:6379> HGETALL user:1
+1) "name"
+2) "Alice"
+3) "age"
+4) "25"
+
+127.0.0.1:6379> SADD tags 'red' 'green' 'blue'
+(integer) 3
+
+127.0.0.1:6379> SMEMBERS tags
+1) "red"
+2) "green"
+3) "blue"
+
+127.0.0.1:6379> INCR counter
+(integer) 1
+
+127.0.0.1:6379> GET counter
+"1"
+
+127.0.0.1:6379> DEL name
+(integer) 1
+
+127.0.0.1:6379> EXISTS name
+(integer) 0
+
+127.0.0.1:6379> SETEX message 60 "Hello, Redis!"
+OK
+
+127.0.0.1:6379> FLUSHALL
+OK
+
+127.0.0.1:6379> GEOADD geo_locations -97.7431 30.2672 "Place A"
+(integer) 1
+127.0.0.1:6379> GEOADD geo_locations -97.7436 30.2711 "Place B"
+(integer) 1
+127.0.0.1:6379> GEOADD geo_locations -97.7417 30.2750 "Place C"
+(integer) 1
+
+127.0.0.1:6379> HSET students John 85.5
+(integer) 1
+127.0.0.1:6379> HSET students Alice 92.0
+(integer) 1
+127.0.0.1:6379> HGETALL students
+1) "John"
+2) "85.5"
+3) "Alice"
+4) "92.0"
+127.0.0.1:6379> HSET students John 88.2
+(integer) 0
+127.0.0.1:6379> HGETALL students
+1) "John"
+2) "88.2"
+3) "Alice"
+4) "92.0"
+
+127.0.0.1:6379> PFADD unique_users user1 user2 user3
+(integer) 1
+
+127.0.0.1:6379> MULTI
+OK
+127.0.0.1:6379(TX)> LPUSH mylist "item1"
+QUEUED
+127.0.0.1:6379(TX)> HSET myhash field1 "value1"
+QUEUED
+127.0.0.1:6379(TX)> EXEC
+1) (integer) 1
+2) (integer) 1
